@@ -1,0 +1,16 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "description": "Welcome to the companion app of Odyssey Lift-off I! You can [find the course lessons and instructions on Odyssey](https://odyssey.apollographql.com/lift-off-part1), Apollo's learning platform.",
+  "main": "index.js",
+  "scripts": {
+    "install_client": "cd ./client && npm install",
+    "install_server": "cd ./server && npm install",
+    "install": "npm run install_server & npm run install_client",
+    "start_client": "cd ./client && npm start",
+    "start_server": "cd ./server && npm run dev",
+    "start": "npm run start_server & npm run start_client"
+  },
+  "author": "",
+  "license": "ISC"
+}
