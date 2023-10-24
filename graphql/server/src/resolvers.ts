@@ -1,20 +1,17 @@
+import {Resolvers} from "./types";
 
-export const resolvers = {
+export const resolvers: Resolvers = {
     Query: {
-        tracksForHome,
+        tracksForHome(parent, args, context, info) {
+            const { dataSources } = context
+            return dataSources.catstronautsAPI.getTracksForHome()
+        },
     },
     Track: {
-        author
+        author(parent, args, context, info) {
+            const { authorId } = parent
+            const { dataSources } = context
+            return dataSources.catstronautsAPI.getAuthor(authorId)
+        }
     }
-}
-
-function tracksForHome(parent, args, context, info) {
-    const { dataSources } = context
-    return dataSources.catstronautsAPI.getTracksForHome()
-}
-
-function author(parent, args, context, info) {
-    const { authorId } = parent
-    const { dataSources } = context
-    return dataSources.catstronautsAPI.getAuthor(authorId)
 }

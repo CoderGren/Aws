@@ -6,19 +6,13 @@ import { mocks } from './mocks';
 import { typeDefs } from './schema';
 import { resolvers } from "./resolvers";
 import {CatstronautsAPI} from "./datasources/catstronauts";
+import {getContext} from "./context";
 
 type ApolloServerBaseContext = {}
 async function startApolloServer() {
     const server = new ApolloServer<ApolloServerBaseContext>(getServerConfig())
     const { url } = await startStandaloneServer(server, {
-        context: async () => {
-            const { cache } = server
-            return {
-                dataSources: {
-                    catstronautsAPI: new CatstronautsAPI({ cache })
-                }
-            }
-        }
+        context: getContext<ApolloServerBaseContext>(server)
     })
     console.log(`
     🚀  Server is running!
