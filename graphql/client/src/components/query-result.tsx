@@ -2,8 +2,6 @@ import React, { PropsWithChildren} from 'react';
 import styled from '@emotion/styled';
 import { LoadingSpinner } from '@apollo/space-kit/Loaders/LoadingSpinner';
 import { ApolloError } from '@apollo/client'
-
-
 interface QueryResultProps {
   loading: boolean;
   error?: ApolloError | undefined;
