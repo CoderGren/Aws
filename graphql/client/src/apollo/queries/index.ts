@@ -16,3 +16,28 @@ export const TRACKS = gql(`
       }
     }
 `)
+
+export const TRACK = gql(`
+    #graphql
+    query GetTrack($trackId: ID!) {
+        track(id: $trackId) {
+            id
+            title
+            author {
+                id
+                name
+                photo
+            }
+            thumbnail
+            length
+            modulesCount
+            numberOfViews
+            modules {
+                id
+                title
+                length
+            }
+            description
+        }
+    }
+`)

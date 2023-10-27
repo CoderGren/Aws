@@ -10,7 +10,6 @@ import TrackCard from "../containers/track-card";
  */
 const Tracks = () => {
   const tracksQueryRes = useQuery(TRACKS)
-  console.log(tracksQueryRes)
   return <Layout grid>
     <QueryResult {...tracksQueryRes}>
       {tracksQueryRes.data?.tracksForHome?.map((track) => (
