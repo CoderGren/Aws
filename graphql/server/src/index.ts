@@ -5,7 +5,6 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mocks } from './mocks';
 import { typeDefs } from './schema';
 import { resolvers } from "./resolvers";
-import {CatstronautsAPI} from "./datasources/catstronauts";
 import {getContext} from "./context";
 
 type ApolloServerBaseContext = {}

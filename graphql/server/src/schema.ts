@@ -11,14 +11,25 @@ export const typeDefs = gql`
     type Track {
         id: ID!
         title: String!
+        description: String
         author: Author!
         thumbnail: String
         length: Int
         modulesCount: Int
+        modules: [Module!]!
+        numberOfViews: Int
+    }
+    
+    type Module {
+        id: ID!
+        title: String!
+        length: Int
     }
     
     type Query {
         "Get tracks array for homepage"
         tracksForHome: [Track!]!
+        "Get a track by id"
+        track(id: ID!): Track
     }
 `;
