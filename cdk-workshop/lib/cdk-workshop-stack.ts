@@ -3,6 +3,7 @@ import * as APIGW from 'aws-cdk-lib/aws-apigateway'
 import * as IAM from 'aws-cdk-lib/aws-iam'
 import * as Lambda from 'aws-cdk-lib/aws-lambda'
 import { Construct } from 'constructs';
+import {HitCounter} from "./hitcounter";
 
 export class CdkWorkshopStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -23,8 +24,12 @@ export class CdkWorkshopStack extends Stack {
       role: lambdaRole,
     })
 
+    const helloLambdaWithCounter = new HitCounter(this, 'helloLambdaHitCounter', {
+      downstream: helloLambda,
+    })
+
     new APIGW.LambdaRestApi(this, 'Endpoint', {
-      handler: helloLambda
+      handler: helloLambdaWithCounter.handler
     })
 
   }

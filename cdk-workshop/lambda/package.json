@@ -1,0 +1,6 @@
+{
+  "name": "cdk-workshop-lambda",
+  "dependencies": {
+    "aws-sdk": "^2.1484.0"
+  }
+}
