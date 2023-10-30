@@ -9,11 +9,12 @@ export interface HitCounterProps {
 
 export class HitCounter extends Construct {
     public readonly handler: Lambda.Function
+    public readonly table: DynamoDB.Table
 
     constructor(scope: Construct, id: string, props: HitCounterProps) {
         super(scope, id)
 
-        const table = new DynamoDB.Table(this, 'Hits', {
+        this.table = new DynamoDB.Table(this, 'Hits', {
             tableName: 'hitsTable',
             partitionKey: {
                 name: 'path',
@@ -29,11 +30,11 @@ export class HitCounter extends Construct {
             code: Lambda.Code.fromAsset('lambda'),
             environment: {
                 DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-                HITS_TABLE_NAME: table.tableName
+                HITS_TABLE_NAME: this.table.tableName
             }
         })
 
-        table.grantReadWriteData(this.handler)
+        this.table.grantReadWriteData(this.handler)
         props.downstream.grantInvoke(this.handler)
     }
 }

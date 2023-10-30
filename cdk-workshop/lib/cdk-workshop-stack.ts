@@ -4,6 +4,7 @@ import * as IAM from 'aws-cdk-lib/aws-iam'
 import * as Lambda from 'aws-cdk-lib/aws-lambda'
 import { Construct } from 'constructs';
 import {HitCounter} from "./hitcounter";
+import {TableViewer} from "cdk-dynamo-table-viewer";
 
 export class CdkWorkshopStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -30,6 +31,12 @@ export class CdkWorkshopStack extends Stack {
 
     new APIGW.LambdaRestApi(this, 'Endpoint', {
       handler: helloLambdaWithCounter.handler
+    })
+
+    new TableViewer(this, 'ViewHits', {
+      title: 'Hits Table Viewer',
+      table: helloLambdaWithCounter.table,
+      sortBy: '-hits'
     })
 
   }
