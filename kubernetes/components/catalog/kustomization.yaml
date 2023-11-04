@@ -1,0 +1,9 @@
+resources:
+  - namespace.yaml
+  - deployment.yaml
+  - service.yaml
+  - statefulset-mysql.yaml
+  - service-mysql.yaml
+  - secrets.yaml
+  - serviceAccount.yaml
+  - configMap.yaml
