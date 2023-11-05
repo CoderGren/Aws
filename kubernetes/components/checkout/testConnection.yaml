@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-test-connection
+  namespace: checkout
+  labels:
+    app.kubernetes.io/name: checkout-test-connection
+    app.kubernetes.io/component: pod
+spec:
+  serviceAccountName: checkout
+  initContainers:
+    - name: wait-for-checkout
+      image: bitnami/kubectl
+      command:
+        - sh
+        - -c
+        - |
+          until kubectl get deployment checkout -n checkout -o jsonpath='{.status.conditions[?(@.type=="Available")].status}' | grep -q True; do
+            echo "Waiting for deployment to become available"
+            sleep 5
+          done
+  containers:
+    - name: wget
+      image: busybox
+      command: ['sh', '-c', '--']
+      args: ['until wget checkout.checkout:80/health; do echo "Waiting for checkout service" && sleep 5; done']
+  restartPolicy: Never

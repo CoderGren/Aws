@@ -6,3 +6,4 @@ metadata:
 data:
   ENDPOINTS_CATALOG: "http://catalog.catalog:80"
   ENDPOINTS_ASSETS: "http://assets.assets:80"
+  ENDPOINTS_CHECKOUT: "http://checkout.checkout:80"
