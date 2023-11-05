@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: assets-test-connection
+  namespace: assets
+  labels:
+    app.kubernetes.io/name: assets-test-connection
+    app.kubernetes.io/component: pod
+spec:
+  serviceAccountName: assets
+  initContainers:
+    - name: wait-for-assets
+      image: bitnami/kubectl
+      command:
+        - sh
+        - -c
+        - |
+          until kubectl get deployment assets -n assets -o jsonpath='{.status.conditions[?(@.type=="Available")].status}' | grep -q True; do
+            echo "Waiting for deployment to become available"
+            sleep 5
+          done
+  containers:
+    - name: wget
+      image: busybox
+      command: ['sh', '-c', '--']
+      args: ['until wget assets.assets:80/health.html; do echo "Waiting for assets service" && sleep 5; done']
+  restartPolicy: Never
