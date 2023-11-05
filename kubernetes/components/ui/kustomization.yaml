@@ -7,3 +7,4 @@ resources:
   - service.yaml
   - serviceAccount.yaml
   - testConnection.yaml
+  - nodePortService.yaml

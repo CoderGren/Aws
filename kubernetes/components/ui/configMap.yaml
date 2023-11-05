@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: ui
   namespace: ui
-data: {}
+data:
+  ENDPOINTS_CATALOG: "http://catalog.catalog:80"
